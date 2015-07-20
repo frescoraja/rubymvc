@@ -24,6 +24,7 @@ class Router
     define_method(http_method) do |pattern, controller_class, action_name|
       add_route(pattern, http_method, controller_class, action_name)
     end
+  end
 
   # should return the route that matches this request
   def match(req)
@@ -31,13 +32,13 @@ class Router
   end
 
   # either throw 404 or call run on a matched route
-    def run(req, res)
-      route = match(req)
-      if route.nil?
-        res.status = 404
-        res.body = "No Route found for #{req.request_method} at #{req.path}"
-      else
-        route.run(req, res)
-      end
+  def run(req, res)
+    route = match(req)
+    if route.nil?
+      res.status = 404
+      res.body = "No Route found for #{req.request_method} at #{req.path}"
+    else
+      route.run(req, res)
     end
+  end
 end

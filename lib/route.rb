@@ -25,6 +25,7 @@ class Route
       when :new
         name = "new_#{class_name_singular}"
         add_path_method(name, "/#{class_name_plural}/new")
+      end
   end
 
   def class_name
