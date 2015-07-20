@@ -1,7 +1,7 @@
 require 'pg'
 require 'sqlite3'
 
-class PGDatabase < PG::Connection
+class PGDB < PG::Connection
   def initialize
     #gets DB info from Heroku PostgreSQL Add-on
     # super(
@@ -13,8 +13,8 @@ class PGDatabase < PG::Connection
     #   )
   end
 
-  def self.exec(*args)
-    self.exec(*args)
+  def self.execute(*args)
+    self.execute(*args)
   end
 
   def self.exec_params(*args)

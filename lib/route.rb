@@ -1,4 +1,5 @@
 require_relative "./route_helpers"
+
 class Route
   include RouteHelpers
   attr_reader :pattern, :http_method, :controller_class, :action_name

@@ -8,7 +8,6 @@ require_relative './router'
 require_relative './route_helpers'
 
 class ControllerBase
-  include RouteHelpers
   attr_reader :req, :res, :params
 
   # Setup the controller
