@@ -5,7 +5,7 @@ require 'active_support/inflector'
 class SQLObject
   def self.columns
     column_names =
-    PGDB.execute2(<<-SQL)
+    DBConnection.execute2(<<-SQL)
     SELECT
       *
     FROM
@@ -35,7 +35,7 @@ class SQLObject
   end
 
   def self.all
-    results = PGDB.execute(<<-SQL)
+    results = DBConnection.execute(<<-SQL)
     SELECT
       *
     FROM
@@ -52,7 +52,7 @@ class SQLObject
   end
 
   def self.find(id)
-    result = PGDB.execute(<<-SQL, id)
+    result = DBConnection.execute(<<-SQL, id)
       SELECT
         *
       FROM
@@ -84,19 +84,19 @@ class SQLObject
   def insert
     col_names = self.class.columns.join(",")
     question_marks = ["?"] * (col_names.count(",") + 1)
-    PGDB.execute(<<-SQL, *attribute_values)
+    DBConnection.execute(<<-SQL, *attribute_values)
     INSERT INTO
       #{self.class.table_name} (#{col_names})
     VALUES
       (#{question_marks.join(',')})
     SQL
 
-    self.id = PGDB.last_insert_row_id
+    self.id = DBConnection.last_insert_row_id
   end
 
   def update
     col_names = self.class.columns.map { |col_name| "#{col_name} = ?" }.join(", ")
-    PGDB.execute(<<-SQL, *attribute_values, self.id)
+    DBConnection.execute(<<-SQL, *attribute_values, self.id)
     UPDATE
       #{self.class.table_name}
     SET
