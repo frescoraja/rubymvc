@@ -1,4 +1,3 @@
-require_relative './searchable'
 require 'active_support/inflector'
 
 class AssocOptions
@@ -87,7 +86,7 @@ module Associatable
       source_fk = source_options.foreign_key
 
       key_val = self.send(through_fk)
-      results = PGDB.execute(<<-SQL, key_val)
+      results = DBConnection.execute(<<-SQL, key_val)
         SELECT
           #{source_table}.*
         FROM

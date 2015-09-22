@@ -1,11 +1,13 @@
 require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
+
 require_relative './session'
 require_relative './flash'
 require_relative './route'
 require_relative './router'
 require_relative './route_helpers'
+require_relative './params'
 
 class ControllerBase
   attr_reader :req, :res, :params
@@ -17,8 +19,9 @@ class ControllerBase
     @params = Params.new(req, route_params)
   end
 
-  def invoke_action(name)
-    render(name) unless already_built_response?
+  def invoke_action(action_name)
+    send(action_name)
+    render(action_name) unless already_built_response?
   end
 
   # Helper method to alias @already_built_response
@@ -52,10 +55,17 @@ class ControllerBase
   # pass the rendered html to render_content
   def render(template_name)
     path = self.class.name.underscore
-    file = "views/#{path}/#{template_name}.html.erb"
-    erb = ERB.new(File.read(file)).result(binding)
+    file = File.dirname(__FILE__) +
+      "/../app/views/#{path}/#{template_name}.html.erb"
+    # if File.exist?(file)
+    #   file = File.read(file)
+    # else
+    #   file += ".erb"
+    # file =
+    content = ERB.new(File.read(file)).result(binding)
+    # end
 
-    render_content(erb, 'text/html')
+    render_content(content, 'text/html')
   end
 
   def flash

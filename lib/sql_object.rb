@@ -1,11 +1,12 @@
-require_relative 'db'
-
+require_relative './pgdb'
+require_relative './searchable'
+require_relative './associatable'
 require 'active_support/inflector'
 
 class SQLObject
   def self.columns
     column_names =
-    DBConnection.execute2(<<-SQL)
+    DBConnection.exec(<<-SQL)
     SELECT
       *
     FROM
@@ -35,7 +36,7 @@ class SQLObject
   end
 
   def self.all
-    results = DBConnection.execute(<<-SQL)
+    results = DBConnection.exec(<<-SQL)
     SELECT
       *
     FROM
@@ -46,13 +47,11 @@ class SQLObject
   end
 
   def self.parse_all(results)
-    results.map do |attributes|
-      self.new(attributes)
-    end
+    results.map { |attributes| self.new(attributes) }
   end
 
   def self.find(id)
-    result = DBConnection.execute(<<-SQL, id)
+    result = DBConnection.exec(<<-SQL, id)
       SELECT
         *
       FROM
@@ -65,6 +64,7 @@ class SQLObject
   end
 
   def initialize(params = {})
+    debugger
     params.each do |key, value|
       raise "unknown attribute '#{key}'" unless self.class.columns.include?(key.to_sym)
       self.send("#{key}=", value)
@@ -84,19 +84,20 @@ class SQLObject
   def insert
     col_names = self.class.columns.join(",")
     question_marks = ["?"] * (col_names.count(",") + 1)
-    DBConnection.execute(<<-SQL, *attribute_values)
+    self.id = DBConnection.exec(<<-SQL, *attribute_values)
     INSERT INTO
       #{self.class.table_name} (#{col_names})
     VALUES
       (#{question_marks.join(',')})
+    RETURNING
+      id
     SQL
 
-    self.id = DBConnection.last_insert_row_id
   end
 
   def update
     col_names = self.class.columns.map { |col_name| "#{col_name} = ?" }.join(", ")
-    DBConnection.execute(<<-SQL, *attribute_values, self.id)
+    DBConnection.exec(<<-SQL, *attribute_values, self.id)
     UPDATE
       #{self.class.table_name}
     SET

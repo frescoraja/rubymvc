@@ -1,0 +1,111 @@
+body {
+  background-color: black;
+  color: white;
+  overflow: hidden;
+}
+
+canvas {
+  background-color: white;
+  margin: 30px;
+}
+
+ul.colors {
+  height: 100%;
+}
+
+ul.colors li {
+  list-style: none;
+  margin: 0 20px 20px 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+ul.colors li:hover {
+  cursor: pointer;
+}
+
+.selected {
+  border: 12px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0px 3px 10px 4px rgba(255, 255, 255, 0.40);
+}
+
+#stroke {
+  margin: 30px;
+  width: 75%;
+}
+
+li.red {
+  background-color: #fb3e41;
+}
+
+li.blue {
+  background-color: #2e82ff;
+}
+
+li.yellow {
+  background-color: #fcff6a;
+}
+
+.revealColorSelect {
+  position: absolute;
+  font-size: 32px;
+  left: 100%;
+  top: 145%;
+  margin-left: -60px;
+  transition: left 450ms ease-in;
+}
+
+.colorSelect {
+  position: absolute;
+  left: 113%;
+  width: 75%;
+  transition: left 450ms ease-in;
+}
+
+.on {
+  left: 12%;
+}
+
+.shown {
+  left: 25%;
+}
+
+.sliders {
+  width: 75%;
+}
+
+.newColor {
+  margin: 30px;
+  height: 120px;
+  width: 120px;
+  background-color: black;
+  box-shadow: 0px 0px 3px 5px rgba(255, 255, 255, 0.31);
+  border-radius: 100%;
+}
+
+.save {
+  position: fixed;
+  bottom: -131px;
+  width: 100%;
+  transition: bottom 450ms linear;
+}
+
+.up {
+  bottom: 10px;
+}
+
+.save-button {
+  position: relative;
+  left: 50%;
+  margin-left: -13.5px;
+}
+
+.save-button:hover {
+  cursor: pointer;
+}
+
+.save-icon {
+  font-size: 32px;
+}

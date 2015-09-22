@@ -2,11 +2,11 @@ require_relative "./route_helpers"
 
 class Route
   include RouteHelpers
-  attr_reader :pattern, :http_method, :controller_class, :action_name
+  attr_reader :http_method, :pattern, :controller_class, :action_name
 
-  def initialize(pattern, http_method, controller_class, action_name)
-    @pattern = pattern
+  def initialize(http_method, pattern, controller_class, action_name)
     @http_method = http_method
+    @pattern = pattern
     @controller_class = controller_class
     @action_name = action_name
     add_route_helpers
@@ -56,7 +56,7 @@ class Route
 
   # checks if pattern matches path and method matches request method
   def matches?(req)
-    !!(pattern =~ req.path) && (http_method == req.request_method.downcase.to_sym)
+    pattern.match(req.path) && (http_method == req.request_method.downcase.to_sym)
   end
 
   # use pattern to pull out route params (save for later?)

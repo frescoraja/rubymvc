@@ -1,3 +1,6 @@
+require_relative '../../lib/controller_base'
+require_relative '../models/sketch'
+
 class SketchController < ControllerBase
   def index
     @sketches = Sketch.all
@@ -7,8 +10,15 @@ class SketchController < ControllerBase
     @sketch = Sketch.new(sketch_params)
   end
 
+  def new
+  end
+
   private
   def sketch_params
-    { sketch: params[]}
+    {
+      'title' => params['sketch']['title'],
+      'author' => params['sketch']['author'],
+      'url' => params['sketch']['url']
+    }
   end
 end

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Make a Sketch!</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+    <script src="/newsketch.js" type="text/javascript"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <a href="/">Home</a>
+      </nav>
+    </header>
+
+    <div class="main">
+      <div class="row">
+        <div class="canvas-container col-xs-6">
+          <canvas height=500 width=500></canvas>
+        </div>
+        <div id="controls" class="col-xs-6">
+          Colors
+          <center>
+            <ul class="colors">
+              <li class="red selected"></li>
+              <li class="blue"></li>
+              <li class="yellow"></li>
+            </ul>
+            <p>
+              <label for="stroke">Line Thickness</label>
+              <input id="stroke" name="stroke" type="range" min=1 max=100 value=10>
+            </p>
+          </center>
+
+          <span class="revealColorSelect btn btn-inverse"><i class="fa fa-paint-brush"></i></span>
+          <div class="colorSelect">
+            <span id="newColor"></span>
+            <div class="sliders">
+              <p>
+                <label for="red">Red</label>
+                <input id="red" name="red" type="range" min=0 max=255 value=0>
+              </p>
+              <p>
+                <label for="green">Green</label>
+                <input id="green" name="green" type="range" min=0 max=255 value=0>
+              </p>
+              <p>
+                <label for="blue">Blue</label>
+                <input id="blue" name="blue" type="range" min=0 max=255 value=0>
+              </p>
+              <p><center>
+                <div class="newColor"></div>
+              </center></p>
+              <center>
+                <button id="addNewColor" class="btn btn-inverse">Add Color</button>
+              </center>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="save">
+      <div class="save-button">
+        <i class="fa fa-floppy-o save-icon btn btn-inverse"></i>
+      </div>
+      <div class="save-form col-xs-6 col-xs-offset-3">
+        <form action="/sketches" method="POST">
+          <input id="urlInput" type="hidden" type="text" name="sketch[url]">
+          <div class="form-group">
+            <input class="form-control" type="text" name="sketch[title]" placeholder="Title">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="text" name="sketch[author]" placeholder="Your name">
+          </div>
+          <button type="submit" class="btn btn-inverse" id="save">Submit Sketch</button>
+      </div>
+    </div>
+  </body>
+
+</html>
