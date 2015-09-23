@@ -1,5 +1,4 @@
 #! /usr/bin/env ruby
-
 require 'byebug'
 require 'webrick'
 require 'method_source'

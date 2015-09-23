@@ -1,6 +1,7 @@
-source 'https://rubygems.org'
+ruby '2.1.2'
 
-ruby '2.2.3'
-
+gem 'activesupport'
+gem 'rspec'
+gem 'pg'
 gem 'cloudinary'
 gem 'newrelic_rpm'
