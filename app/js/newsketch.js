@@ -15,12 +15,15 @@ $(document).ready(function(){
     $('.selected').removeClass('selected');
     $(e.target).addClass('selected');
     color = $(e.target).css('background-color');
-    console.log(color);
   });
 
   $('.sliders input[type=range]').change(changeColor);
 
   $('#stroke').change(changeStrokeWeight);
+
+  $('#clear').click(function () {
+    ctx.clearRect(0, 0, $canvas[0].width, $canvas[0].height);
+  });
 
   $('#addNewColor').click(function(e){
     var $newColor = $('<li>');
@@ -64,7 +67,24 @@ $(document).ready(function(){
     $('.save').toggleClass('up');
   });
 
-  $("#save").submit(function (e) {
+  $("#save-form").submit(function (e) {
+    e.preventDefault();
+    var imgData = $canvas[0].toDataURL('image/png');
+    var binary = atob(imgData.split(',')[1]);
+    var array = [];
+    for (var i = 0; i < binary.length; i++) {
+      array.push(binary.charCodeAt(i));
+    }
+    var file = new Blob([new Uint8Array(array)], { type: 'image/png' });
+    var fd = new FormData($("#save-form"));
+    fd.append("image", file);
 
+    $.ajax({
+      url: '/sketches',
+      method: 'POST',
+      data: fd,
+      processData: false,
+      contentType: false
+    });
   });
 });

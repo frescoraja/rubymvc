@@ -15,6 +15,15 @@ class SQLObject
     column_names.first.map! { |column_name| column_name.to_sym }
   end
 
+  def self.count
+    DBConnection.exec(<<-SQL)
+    SELECT
+      COUNT(*)
+    FROM
+      #{table_name}
+    SQL
+  end
+
   def self.finalize!
     columns.each do |column_name|
       define_method("#{column_name}=") do |value|
@@ -105,7 +114,6 @@ class SQLObject
     WHERE
       id = ?
     SQL
-
   end
 
   def save
