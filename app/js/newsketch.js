@@ -26,9 +26,10 @@ $(document).ready(function(){
   });
 
   $('#addNewColor').click(function(e){
-    var $newColor = $('<li>');
+    var $newColor = $('<li>').css('display', 'none');
     $newColor.css("background-color", $(".newColor").css("background-color"));
     $("ul.colors").append($newColor);
+    $newColor.fadeIn();
     $newColor.click();
   });
 
@@ -63,28 +64,23 @@ $(document).ready(function(){
     $canvas.mouseup();
   });
 
-  $('.save-button').click(function () {
+  $('.save-icon').click(function () {
+    $('revealColorSelect').removeClass('on');
+    $('colorSelect').removeClass('shown');
     $('.save').toggleClass('up');
   });
 
   $("#save-form").submit(function (e) {
     e.preventDefault();
     var imgData = $canvas[0].toDataURL('image/png');
-    var binary = atob(imgData.split(',')[1]);
-    var array = [];
-    for (var i = 0; i < binary.length; i++) {
-      array.push(binary.charCodeAt(i));
-    }
-    var file = new Blob([new Uint8Array(array)], { type: 'image/png' });
-    var fd = new FormData($("#save-form"));
-    fd.append("image", file);
+    var sketchData = $("#save-form").serializeJSON();
+    sketchData.sketch.image = imgData;
 
     $.ajax({
       url: '/sketches',
       method: 'POST',
-      data: fd,
-      processData: false,
-      contentType: false
+      data: sketchData,
+      dataType: 'json',
     });
   });
 });

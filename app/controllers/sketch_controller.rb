@@ -1,5 +1,6 @@
 require_relative '../../lib/controller_base'
 require_relative '../models/sketch'
+require 'cloudinary'
 
 class SketchController < ControllerBase
   def index
@@ -7,15 +8,10 @@ class SketchController < ControllerBase
   end
 
   def create
-    params = sketch_params
-    
-    path = "/../public/uploads/img_#{ Time.now.to_i }.png"
-    File.open(path, "wb") do |f|
-      f.write(params[:image].read)
-    end
-    sketch_params[:image] = path
-    debugger
-    @sketch = Sketch.new(sketch_params)
+    image = Cloudinary::Uploader.upload(sketch_params['image'],
+      { cloud_name: "frescoraja", name: "rubymvc", api_key: "647191524135491", api_secret: "zWb76H9iIb2PA-oZlpVPZK1ER-g" })
+    new_params = sketch_params.merge({ 'image' => image['url'] })
+    @sketch = Sketch.new(new_params)
     @sketch.save
     redirect_to("/")
   end

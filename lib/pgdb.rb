@@ -23,16 +23,12 @@ end
 
 class DBConnection
   def self.instance
-    @db
+    @db ||= Database.new
   end
 
   def self.exec(*args)
     puts args[0]
 
     instance.exec(*args)
-  end
-
-  def initialize
-    @db = Database.new
   end
 end

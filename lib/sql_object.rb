@@ -2,17 +2,21 @@ require_relative './pgdb'
 require_relative './searchable'
 require_relative './associatable'
 require 'active_support/inflector'
-
+DBConnection
 class SQLObject
   def self.columns
+    return @columns if @columns
     column_names =
     DBConnection.exec(<<-SQL)
     SELECT
       *
     FROM
       #{table_name}
+    LIMIT
+      0
     SQL
-    column_names.first.map! { |column_name| column_name.to_sym }
+
+    @columns = column_names.fields.map(&:to_sym)
   end
 
   def self.count
@@ -31,6 +35,18 @@ class SQLObject
       end
       define_method("#{column_name}") do
         attributes[column_name]
+      end
+    end
+  end
+
+  def self.make_cols_attr_accessors
+    self.columns.each do |sym|
+      define_method(sym) do
+        attributes[sym]
+      end
+
+      define_method((sym.to_s + '=').to_sym) do |value|
+        attributes[sym] = value
       end
     end
   end
@@ -72,8 +88,11 @@ class SQLObject
     parse_all(result).first
   end
 
+  def self.id
+
+  end
+  
   def initialize(params = {})
-    debugger
     params.each do |key, value|
       raise "unknown attribute '#{key}'" unless self.class.columns.include?(key.to_sym)
       self.send("#{key}=", value)
@@ -87,7 +106,8 @@ class SQLObject
   end
 
   def attribute_values
-    self.class.columns.map { |attr_name| self.send(attr_name) }
+    #self.class.columns.map { |attr_name| self.send(attr_name) }
+    attributes.values
   end
 
   def insert

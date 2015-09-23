@@ -1,11 +1,17 @@
 body {
   background-color: black;
   color: white;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  min-width: 900px;
 }
 
 canvas {
   background-color: white;
+}
+
+#controls {
+  min-width: 450px;
 }
 
 ul.colors {
@@ -19,6 +25,7 @@ ul.colors li {
   height: 120px;
   border-radius: 20px;
   display: inline-block;
+  box-shadow: 0px 0px 2px 3px rgba(255, 255, 255, 0.24);
 }
 
 ul.colors li:hover {
@@ -50,8 +57,8 @@ li.yellow {
 .revealColorSelect {
   position: absolute;
   font-size: 32px;
-  left: 100%;
-  top: 145%;
+  left: 98%;
+  top: 130%;
   margin-left: -60px;
   transition: left 450ms ease-in;
 }
@@ -61,6 +68,8 @@ li.yellow {
   left: 113%;
   width: 75%;
   transition: left 450ms ease-in;
+  margin-top: 50px;
+  z-index: 100;
 }
 
 .on {
@@ -101,7 +110,7 @@ li.yellow {
   margin-left: -13.5px;
 }
 
-.save-button:hover {
+.save-icon:hover {
   cursor: pointer;
 }
 
