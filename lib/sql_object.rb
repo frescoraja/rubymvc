@@ -68,7 +68,7 @@ class SQLObject
       #{table_name}
     SQL
 
-    parse_all(results)
+    self.parse_all(results)
   end
 
   def self.parse_all(results)
@@ -88,17 +88,11 @@ class SQLObject
     parse_all(result).first
   end
 
-  def self.id
-
-  end
-  
   def initialize(params = {})
     params.each do |key, value|
       raise "unknown attribute '#{key}'" unless self.class.columns.include?(key.to_sym)
       self.send("#{key}=", value)
     end
-
-    update
   end
 
   def attributes
@@ -111,22 +105,22 @@ class SQLObject
   end
 
   def insert
-    col_names = self.class.columns.join(",")
-    question_marks = ["?"] * (col_names.count(",") + 1)
-    self.id = DBConnection.exec(<<-SQL, *attribute_values)
+    col_names = self.class.columns.drop(1).join(",")
+    vals = (1..col_names.count(',') + 1).to_a.map { |num| '$'+ num.to_s }.join(',')
+    result = DBConnection.exec(<<-SQL, attribute_values)
     INSERT INTO
       #{self.class.table_name} (#{col_names})
     VALUES
-      (#{question_marks.join(',')})
+      (#{ vals })
     RETURNING
       id
     SQL
-
+    self.id = result[0]['id'].to_i
   end
 
   def update
     col_names = self.class.columns.map { |col_name| "#{col_name} = ?" }.join(", ")
-    DBConnection.exec(<<-SQL, *attribute_values, self.id)
+    DBConnection.exec(<<-SQL, attribute_values, self.id)
     UPDATE
       #{self.class.table_name}
     SET

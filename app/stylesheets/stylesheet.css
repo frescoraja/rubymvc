@@ -1,9 +1,43 @@
-body {
+html, body {
+  padding: 0px;
+  margin: 0px;
   background-color: black;
+}
+
+body {
   color: white;
   overflow-x: hidden;
   overflow-y: scroll;
   min-width: 900px;
+}
+
+#main {
+  background-color: rgba(255, 255, 255, 0.22);
+  position: relative;
+  top: 100px;
+  bottom: 0px;
+}
+
+details {
+  background-color: rgba(255, 255, 255, 0.13);
+}
+
+header {
+  position: absolute;
+  height: 100px;
+  background-color: black;
+  width: 100%;
+}
+
+.sketch-item {
+  list-style: none;
+  width: 280px;
+  height: 280px;
+  display: inline-table;
+}
+
+img {
+  background-color: white;
 }
 
 canvas {
@@ -96,7 +130,7 @@ li.yellow {
 .save {
   position: fixed;
   bottom: -131px;
-  width: 100%;
+  width: 40%;
   transition: bottom 450ms linear;
 }
 
@@ -105,9 +139,9 @@ li.yellow {
 }
 
 .save-button {
-  position: relative;
+  /*position: relative;
   left: 50%;
-  margin-left: -13.5px;
+  margin-left: -13.5px;*/
 }
 
 .save-icon:hover {

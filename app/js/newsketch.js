@@ -81,6 +81,9 @@ $(document).ready(function(){
       method: 'POST',
       data: sketchData,
       dataType: 'json',
+      complete: function(req, res) {
+        window.location = "/";
+      }
     });
   });
 });
