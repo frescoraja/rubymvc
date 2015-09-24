@@ -29,6 +29,10 @@ header {
   width: 100%;
 }
 
+.sketches {
+  margin: 0;
+}
+
 .sketch-item {
   list-style: none;
   width: 280px;
