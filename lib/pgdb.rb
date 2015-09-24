@@ -9,7 +9,6 @@ class Database < PG::Connection
       user: 'fowhogviesmazr',
       password: '4nzViH2f20fagvWbl1phfmrTxK'
       )
-
   end
 
   def self.exec(*args)

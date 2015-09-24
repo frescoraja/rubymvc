@@ -72,6 +72,7 @@ $(document).ready(function(){
 
   $("#save-form").submit(function (e) {
     e.preventDefault();
+    $('button.save').prop('disabled', true);
     var imgData = $canvas[0].toDataURL('image/png');
     var sketchData = $("#save-form").serializeJSON();
     sketchData.sketch.image = imgData;

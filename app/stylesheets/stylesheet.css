@@ -134,7 +134,7 @@ li.yellow {
 
 .save {
   position: fixed;
-  bottom: -131px;
+  bottom: -135px;
   width: 40%;
   transition: bottom 450ms linear;
 }
