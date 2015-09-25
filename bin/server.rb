@@ -8,11 +8,9 @@ require_relative '../lib/router'
 require_relative '../app/controllers/sketch_controller'
 require_relative '../app/controllers/css_controller'
 require_relative '../app/controllers/js_controller'
-require_relative '../app/controllers/favicon_controller'
 
 router = Router.new
 router.draw do
-  get Regexp.new("^/favicon.ico$"), FaviconController, :favicon
   get Regexp.new("^[/]?$"), SketchController, :index
   get Regexp.new("^/sketches[/]?$"), SketchController, :index
   get Regexp.new("^/sketches/new[/]?$"), SketchController, :new
