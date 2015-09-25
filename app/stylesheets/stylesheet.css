@@ -36,8 +36,8 @@ header {
 
 .sketch-item {
   list-style: none;
-  width: 280px;
-  height: 280px;
+  width: 80px;
+  height: 80px;
   display: inline-table;
 }
 
@@ -50,12 +50,19 @@ img {
   background-color: white;
 }
 
+.canvas-container {
+  margin-top: 30px;
+}
+
 canvas {
   background-color: white;
+  z-index: 10001;
 }
 
 #controls {
   min-width: 450px;
+  margin: auto;
+  text-align: center;
 }
 
 ul.colors {
@@ -82,7 +89,7 @@ ul.colors li:hover {
 }
 
 #stroke {
-  margin: 30px;
+  margin: 30px auto;
   width: 75%;
 }
 
@@ -104,14 +111,14 @@ li.yellow {
   left: 98%;
   top: 130%;
   margin-left: -60px;
-  transition: left 450ms ease-in;
+  transition: left 350ms ease-in;
 }
 
 .colorSelect {
   position: absolute;
   left: 113%;
   width: 75%;
-  transition: left 450ms ease-in;
+  transition: left 350ms ease-in;
   margin-top: 50px;
   z-index: 100;
 }
@@ -141,7 +148,7 @@ li.yellow {
   position: fixed;
   bottom: -135px;
   width: 40%;
-  transition: bottom 450ms linear;
+  transition: bottom 350ms linear;
 }
 
 .up {
