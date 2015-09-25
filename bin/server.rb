@@ -12,13 +12,13 @@ require_relative '../app/controllers/favicon_controller'
 
 router = Router.new
 router.draw do
+  get Regexp.new("^[/]?favicon.ico$"), Favicon, :favicon
   get Regexp.new("^[/]?$"), SketchController, :index
   get Regexp.new("^/sketches[/]?$"), SketchController, :index
   get Regexp.new("^/sketches/new[/]?$"), SketchController, :new
   post Regexp.new("^/sketches[/]?$"), SketchController, :create
   get Regexp.new("^/stylesheet.css$"), CSSController, :style
   get Regexp.new("^/newsketch.js$"), JSController, :script
-  get Regexp.new("^[/]?favicon.ico$"), Favicon, :icon
 end
 
 PORT = ARGV[0] || 3000

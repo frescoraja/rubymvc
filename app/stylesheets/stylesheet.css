@@ -209,7 +209,7 @@ input[type="range"]::-webkit-slider-thumb {
   border: none;
   border-radius: 12px;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #529de1), color-stop(100%, #245e8f)); /* android <= 2.2 */
-  background-image: -webkit-linear-gradient(top , #529de1 0, #245e8f 100%); /* older mobile safari and android > 2.2 */;
+  background-image: -webkit-linear-gradient(top , #529de1 0, #245e8f 100%); /* older mobile safari and android > 2.2 */
   background-image: linear-gradient(to bottom, #529de1 0, #245e8f 100%); /* W3C */
 }
 input[type="range"]::-moz-range-thumb {
