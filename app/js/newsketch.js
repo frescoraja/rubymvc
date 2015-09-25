@@ -5,6 +5,7 @@ $(document).ready(function(){
   var lastEvent;
   var mouseDown = false;
   var strokeWeight = $('#stroke').val();
+  $("button.save-btn").prop("disabled", true);
 
   $('.revealColorSelect').click(function(e) {
     $(".colorSelect").toggleClass("shown");
@@ -23,6 +24,7 @@ $(document).ready(function(){
 
   $('#clear').click(function () {
     ctx.clearRect(0, 0, $canvas[0].width, $canvas[0].height);
+    $("button.save-btn").prop("disabled", true);
   });
 
   $('#addNewColor').click(function(e){
@@ -46,6 +48,7 @@ $(document).ready(function(){
   }
 
   $canvas.mousedown(function(e) {
+    $("button.save-btn").prop("disabled", false);
     lastEvent = e;
     mouseDown = true;
   }).mousemove(function(e){

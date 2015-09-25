@@ -29,15 +29,40 @@ header {
   width: 100%;
 }
 
+header a {
+  text-decoration: none;
+  color: white;
+}
+
+header a:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+header a:active {
+  text-decoration: none;
+  color: rgba(0, 255, 193, 0.32);
+}
+
+header a:visited {
+  text-decoration: none;
+  color: rgba(0, 255, 106, 0.08);
+}
+
+.github {
+  margin-right: 30px;
+}
+
 .sketches {
   margin: 0px;
-  padding: 0px;
+  padding: 30px 10px;
 }
 
 .sketch-item {
   list-style: none;
   width: 80px;
   height: 80px;
+  margin: 0 10px 10px 0;
   display: inline-table;
 }
 
