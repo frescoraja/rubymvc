@@ -8,6 +8,7 @@ body {
   color: white;
   overflow-x: hidden;
   overflow-y: scroll;
+  width: 100%;
   min-width: 900px;
 }
 
@@ -64,6 +65,10 @@ header a:visited {
   height: 80px;
   margin: 0 10px 10px 0;
   display: inline-table;
+}
+
+.container {
+  width: 100%;
 }
 
 .main {
