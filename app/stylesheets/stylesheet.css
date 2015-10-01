@@ -30,28 +30,16 @@ header {
   width: 100%;
 }
 
-header a {
-  text-decoration: none;
-  color: white;
+nav {
+  padding-left: 20px;
 }
-
-header a:hover {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.28);
+.plus {
+  margin-right: 30px;
+  font-size: 50px;
 }
-
-header a:active {
-  text-decoration: none;
-  color: rgba(0, 255, 193, 0.32);
-}
-
-header a:visited {
-  text-decoration: none;
-  color: rgba(0, 255, 106, 0.08);
-}
-
 .github {
   margin-right: 30px;
+  font-size: 50px;
 }
 
 .sketches {
