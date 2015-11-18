@@ -9,7 +9,7 @@ class SketchController < ControllerBase
 
   def create
     image = Cloudinary::Uploader.upload(sketch_params['image'],
-      { cloud_name: "frescoraja", name: "rubymvc", api_key: "647191524135491", api_secret: "zWb76H9iIb2PA-oZlpVPZK1ER-g" })
+      { cloud_name: ENV[cloud_name], name: ENV[name], api_key: ENV[api_key], api_secret: ENV[api_secret] })
     new_params = sketch_params.merge({ 'image' => image['url'], created_at: Time.now })
     @sketch = Sketch.new(new_params)
     @sketch.save
