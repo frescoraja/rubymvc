@@ -17,7 +17,7 @@ class Params
     @params.to_s
   end
 
-  class AttributeNotFoundError < ArgumentError; end;
+  # class AttributeNotFoundError < ArgumentError; end;
 
   private
   def parse_www_encoded_form(www_encoded_form)

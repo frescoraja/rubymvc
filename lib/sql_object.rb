@@ -2,7 +2,7 @@ require_relative './pgdb'
 require_relative './searchable'
 require_relative './associatable'
 require 'active_support/inflector'
-DBConnection
+
 class SQLObject
   def self.columns
     return @columns if @columns

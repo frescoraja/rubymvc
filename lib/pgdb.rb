@@ -1,14 +1,21 @@
 require 'pg'
+require 'uri'
 
 class Database < PG::Connection
   def initialize
-    super(
-      host: 'ec2-54-204-25-54.compute-1.amazonaws.com',
-      port: 5432,
-      dbname: 'dj0s7i0dpac7r',
-      user: 'fowhogviesmazr',
-      password: '4nzViH2f20fagvWbl1phfmrTxK'
-      )
+    uri = URI.parse(ENV['DATABASE_URL'])
+    db_params = parse_db_params(uri)
+    super(db_params)
+  end
+
+  def self.parse_db_params(params)
+    {
+      host: params.hostname,
+      dbname: params.path[1..-1],
+      port: params.port,
+      user: params.user,
+      password: params.password
+    }
   end
 
   def self.exec(*args)
