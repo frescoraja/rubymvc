@@ -3,19 +3,14 @@ require 'uri'
 
 class Database < PG::Connection
   def initialize
-    uri = URI.parse(ENV['DATABASE_URL'])
-    db_params = parse_db_params(uri)
-    super(db_params)
-  end
-
-  def self.parse_db_params(params)
-    {
-      host: params.hostname,
-      dbname: params.path[1..-1],
+    params = URI.parse(ENV['DATABASE_URL'])
+    super(
+      host: params.host,
       port: params.port,
+      dbname: params.path[1..-1],
       user: params.user,
       password: params.password
-    }
+      )
   end
 
   def self.exec(*args)
