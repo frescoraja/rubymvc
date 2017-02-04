@@ -106,12 +106,12 @@ class SQLObject
 
   def insert
     col_names = self.class.columns.drop(1).join(",")
-    vals = (1..col_names.count(',') + 1).to_a.map { |num| '$'+ num.to_s }.join(',')
+    values = (1..col_names.count(',') + 1).to_a.map { |name| '$'+ name.to_s }.join(',')
     result = DBConnection.exec(<<-SQL, attribute_values)
     INSERT INTO
       #{self.class.table_name} (#{col_names})
     VALUES
-      (#{ vals })
+      (#{ values })
     RETURNING
       id
     SQL
