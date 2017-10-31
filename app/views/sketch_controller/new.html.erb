@@ -13,15 +13,15 @@
   </head>
 
   <body>
-    <header>
-      <nav>
-        <a class="pull-left plus" href="/"><i class="fa fa-arrow-circle-o-left"></i></a>
-        <a class="github pull-right" href="http://github.com/frescoraja/rubymvc.git"><i class="fa fa-github-alt"></i></a>
-      </nav>
-    </header>
+    <div id="outer">
+      <header>
+        <nav>
+          <a class="pull-left plus" href="/"><i class="fa fa-arrow-circle-o-left"></i></a>
+          <a class="github pull-right" href="http://github.com/frescoraja/rubymvc.git"><i class="fa fa-github-alt"></i></a>
+        </nav>
+      </header>
 
-    <div class="conatiner main">
-      <div class="row">
+      <div class="main">
         <div class="canvas-container col-xs-6">
           <center><canvas height=500 width=500></canvas></center>
         </div>
@@ -39,7 +39,6 @@
               <input id="stroke" name="stroke" type="range" min=1 max=100 value=3>
             </p>
               <p><button id="clear" class="btn btn-inverse">Clear Image</button></p>
-
 
           <span class="revealColorSelect btn btn-inverse"><i class="fa fa-paint-brush"></i></span>
           <div class="colorSelect">
@@ -66,15 +65,11 @@
             </div>
           </div>
         </div>
-
       </div>
-    </div>
 
-
-    <div class="col-xs-6">
-      <div class="save">
+      <div class="saving">
         <div class="save-button">
-          <i class="fa fa-floppy-o save-icon btn btn-inverse"></i>
+          <i class="fa fa-floppy-o save-icon"></i>
         </div>
         <form id="save-form" action="/sketches" method="POST">
           <div class="form-group">
@@ -86,7 +81,9 @@
           <button type="submit" class="btn btn-inverse save-btn">Submit Sketch</button>
         </form>
       </div>
+
     </div>
+
   </body>
 
 </html>

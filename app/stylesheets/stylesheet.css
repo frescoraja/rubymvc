@@ -2,21 +2,27 @@ html, body {
   padding: 0px;
   margin: 0px;
   background-color: black;
+  user-select: none;
 }
 
 body {
   color: white;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  width: 100%;
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
+  /* width: 100%; */
   min-width: 900px;
+  user-select: inherit;
 }
 
-#main {
+#outer {
   background-color: black;
-  position: relative;
-  top: 70px;
-  bottom: 0px;
+  /* position: relative; */
+  /* top: 70px; */
+  /* bottom: 0px; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* flex-wrap: nowrap; */
 }
 
 details {
@@ -24,15 +30,16 @@ details {
 }
 
 header {
-  position: absolute;
-  height: 70px;
+  /* position: absolute; */
+  /* height: 70px; */
   background-color: rgba(255, 255, 255, 0.15);
-  width: 100%;
+  /* width: 100%; */
 }
 
 nav {
   padding-left: 20px;
 }
+
 .plus {
   margin-right: 30px;
   font-size: 50px;
@@ -55,13 +62,17 @@ nav {
   display: inline-table;
 }
 
-.container {
-  width: 100%;
-}
+/* .container { */
+  /* width: 100%; */
+/* } */
 
 .main {
-  position: relative;
-  top: 70px;
+  /* position: relative; */
+  /* flex-grow: 2; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* flex-wrap: nowrap; */
+  /* justify-content: space-between; */
 }
 
 img {
@@ -69,7 +80,7 @@ img {
 }
 
 .canvas-container {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 canvas {
@@ -81,6 +92,10 @@ canvas {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.btn {
+  color: #333;
 }
 
 #controls {
@@ -144,6 +159,7 @@ li.yellow {
   width: 75%;
   transition: left 350ms ease-in;
   margin-top: 50px;
+  margin-bottom: 10px;
   z-index: 100;
 }
 
@@ -231,21 +247,17 @@ input[type="range"]::-ms-thumb {
   border-radius: 100%;
 }
 
-.save {
+.saving {
+  padding: 6px;
   position: fixed;
-  bottom: -135px;
-  width: 40%;
-  transition: bottom 350ms linear;
+  width: 50%;
+  background: #000000;
+  transition: bottom 250ms linear;
+  bottom: -140px;
 }
 
-.up {
-  bottom: 10px;
-}
-
-.save-button {
-  /*position: relative;
-  left: 50%;
-  margin-left: -13.5px;*/
+.open {
+  bottom: 0px;
 }
 
 .save-icon:hover {
@@ -254,4 +266,5 @@ input[type="range"]::-ms-thumb {
 
 .save-icon {
   font-size: 32px;
+  padding: 4px 0 6px 4px;
 }

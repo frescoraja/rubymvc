@@ -3,6 +3,7 @@ $(document).ready(function(){
   var $canvas = $("canvas");
   var ctx = $canvas[0].getContext("2d");
   var lastEvent;
+  var startedDrawing = false;
   var mouseDown = false;
   var strokeWeight = $('#stroke').val();
   $("button.save-btn").prop("disabled", true);
@@ -25,6 +26,7 @@ $(document).ready(function(){
   $('#clear').click(function () {
     ctx.clearRect(0, 0, $canvas[0].width, $canvas[0].height);
     $("button.save-btn").prop("disabled", true);
+    startedDrawing = false;
   });
 
   $('#addNewColor').click(function(e){
@@ -48,7 +50,11 @@ $(document).ready(function(){
   }
 
   $canvas.mousedown(function(e) {
-    $("button.save-btn").prop("disabled", false);
+    if (!startedDrawing) {
+      $("button.save-btn").prop("disabled", false);
+      startedDrawing = true;
+    }
+
     lastEvent = e;
     mouseDown = true;
   }).mousemove(function(e){
@@ -61,16 +67,30 @@ $(document).ready(function(){
       ctx.stroke();
       lastEvent = e;
     }
-  }).mouseup(function() {
-    mouseDown = false;
   }).mouseleave(function(e) {
-    $canvas.mouseup();
+    if (mouseDown) {
+      ctx.moveTo(lastEvent.offsetX, lastEvent.offsetY);
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.lineWidth = strokeWeight;
+      ctx.stroke();
+    }
+    lastEvent = e;
+  }).mouseenter(function(e) {
+    if (e.buttons === 1) {
+      mouseDown = true;
+    }
+    lastEvent = e;
   });
+
+  $('body').on('mouseup', function(e) {
+    mouseDown = false;
+  });
+
 
   $('.save-icon').click(function () {
     $('revealColorSelect').removeClass('on');
     $('colorSelect').removeClass('shown');
-    $('.save').toggleClass('up');
+    $('.saving').toggleClass('open');
   });
 
   $("#save-form").submit(function (e) {
