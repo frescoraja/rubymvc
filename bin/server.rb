@@ -1,6 +1,5 @@
 #! /usr/bin/env ruby
 
-require 'byebug'
 require 'webrick'
 require 'method_source'
 
@@ -16,7 +15,8 @@ router.draw do
   get Regexp.new("^/sketches/new[/]?$"), SketchController, :new
   post Regexp.new("^/sketches[/]?$"), SketchController, :create
   get Regexp.new("^/stylesheet.css$"), CSSController, :style
-  get Regexp.new("^/newsketch.js$"), JSController, :script
+  get Regexp.new("^/newsketch.js$"), JSController, :new_sketch_script
+  get Regexp.new("^/serializejson.js$"), JSController, :serializejson_script
 end
 
 PORT = ARGV[0] || 3000
