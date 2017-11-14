@@ -13,7 +13,7 @@
   <body>
     <header>
       <nav>
-        <h1 class="pull-left">Web Paint on RubyMVC</h1>
+        <h2 class="pull-left">Web Paint on RubyMVC</h2>
         <span class="links pull-right">
           <a class="plus" href="/sketches/new"><i class="fa fa-plus"></i></a>
           <a class="github" href="http://github.com/frescoraja/rubymvc.git"><i class="fa fa-github-alt"></i></a>
@@ -22,18 +22,22 @@
     </header>
 
     <div id="main">
-      <center>
-        <ul class="sketches">
-          <% @sketches.each do |sketch| %>
+      <div class="sketches">
+        <% @sketches.each do |sketch| %>
 
-            <li class="sketch-item"><img src='<%= sketch.image %>'>
-            <details>
-              <p>Title: <%= sketch.title %></p>
-              <p>Created by: <%= sketch.author %></p>
-              <p>Created: <%= sketch.created_at %></p>
-            </details></li>
-          <% end %>
-        </ul>
-      </center>
+          <div class="sketch-item">
+            <div class="image">
+              <img src='<%= sketch.image %>'>
+            </div>
+            <div class="details">
+              <details>
+                <p>Title: <%= sketch.title %></p>
+                <p>Created by: <%= sketch.author %></p>
+                <p>Created: <%= sketch.created_at %></p>
+              </details>
+          </div>
+          </div>
+        <% end %>
+      </div>
     </div>
 </html>

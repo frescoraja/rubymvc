@@ -10,7 +10,6 @@ body {
   /* overflow-x: hidden; */
   /* overflow-y: scroll; */
   /* width: 100%; */
-  min-width: 900px;
   user-select: inherit;
 }
 
@@ -25,15 +24,18 @@ body {
   /* flex-wrap: nowrap; */
 }
 
-details {
-  background-color: rgba(255, 255, 255, 0.13);
+.details {
+  position: absolute;
+  padding: 2px 4px;
+  width: 100%;
+  background-color: rgb(66, 66, 66);
+  z-index: 10;
 }
 
 header {
-  /* position: absolute; */
-  /* height: 70px; */
   background-color: rgba(255, 255, 255, 0.15);
-  /* width: 100%; */
+  height: 62px;
+  min-width: 628px;
 }
 
 nav {
@@ -42,41 +44,33 @@ nav {
 
 .plus {
   margin-right: 30px;
-  font-size: 50px;
+  font-size: 3em;
 }
 .github {
   margin-right: 30px;
-  font-size: 50px;
+  font-size: 3em;
 }
 
 .sketches {
-  margin: 0px;
-  padding: 30px 10px;
+  width: 100%;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
 }
 
 .sketch-item {
-  list-style: none;
-  width: 80px;
-  height: 80px;
-  margin: 0 10px 10px 0;
-  display: inline-table;
-}
-
-/* .container { */
-  /* width: 100%; */
-/* } */
-
-.main {
-  /* position: relative; */
-  /* flex-grow: 2; */
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* flex-wrap: nowrap; */
-  /* justify-content: space-between; */
+  width: 200px;
+  margin-bottom: 40px;
+  position: relative;
 }
 
 img {
   background-color: white;
+  height: 100%;
+  width: 100%;
 }
 
 .canvas-container {
