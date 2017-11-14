@@ -4,7 +4,7 @@ require 'cloudinary'
 
 class SketchController < ControllerBase
   def index
-    @sketches = Sketch.all
+    @sketches = Sketch.all.sort { |x, y| x.created_at <=> y.created_at }
   end
 
   def create
