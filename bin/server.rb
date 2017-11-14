@@ -1,7 +1,6 @@
 #! /usr/bin/env ruby
 
 require 'webrick'
-require 'method_source'
 
 require_relative '../lib/router'
 require_relative '../app/controllers/sketch_controller'
