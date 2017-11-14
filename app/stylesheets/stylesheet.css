@@ -62,7 +62,9 @@ nav {
 }
 
 .sketch-item {
-  width: 200px;
+  min-width: 200px;
+  max-width: 360px;
+  flex-basis: 30%;
   margin-bottom: 40px;
   position: relative;
 }
