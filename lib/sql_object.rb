@@ -6,7 +6,7 @@ require 'active_support/inflector'
 class SQLObject
   def self.columns
     return @columns if @columns
-    column_names =
+    result =
     DBConnection.exec(<<-SQL)
     SELECT
       *
@@ -16,7 +16,7 @@ class SQLObject
       0
     SQL
 
-    @columns = column_names.fields.map(&:to_sym)
+    @columns = result.fields.map(&:to_sym)
   end
 
   def self.count
@@ -56,7 +56,7 @@ class SQLObject
   end
 
   def self.table_name
-    name = self.name.downcase.pluralize
+    name = self.name.downcase
     @table_name ||= name
   end
 
@@ -75,19 +75,6 @@ class SQLObject
     results.map { |attributes| self.new(attributes) }
   end
 
-  def self.find(id)
-    result = DBConnection.exec(<<-SQL, id)
-      SELECT
-        *
-      FROM
-        #{table_name}
-      WHERE
-        id = ?
-    SQL
-
-    parse_all(result).first
-  end
-
   def initialize(params = {})
     params.each do |key, value|
       raise "unknown attribute '#{key}'" unless self.class.columns.include?(key.to_sym)
@@ -100,18 +87,33 @@ class SQLObject
   end
 
   def attribute_values
-    #self.class.columns.map { |attr_name| self.send(attr_name) }
     attributes.values
   end
 
+  def non_empty_attributes
+    attributes.select{|k, v| v.strip != ""}
+  end
+
+  def non_empty_values
+    non_empty_attributes.values
+  end
+
+  def non_empty_column_names
+    non_empty_attributes.keys
+  end
+
+  def column_names
+    @column_names ||= (attributes.keys - [:id])
+  end
+
   def insert
-    col_names = self.class.columns.drop(1).join(",")
-    values = (1..col_names.count(',') + 1).to_a.map { |name| '$'+ name.to_s }.join(',')
-    result = DBConnection.exec(<<-SQL, attribute_values)
+    col_names = non_empty_column_names.map(&:to_s).join(",")
+    values = non_empty_column_names.map.with_index{|_, i| "$#{i+1}"}.join(",")
+    result = DBConnection.exec(<<-SQL, non_empty_values)
     INSERT INTO
       #{self.class.table_name} (#{col_names})
     VALUES
-      (#{ values })
+      (#{values})
     RETURNING
       id
     SQL
@@ -119,14 +121,14 @@ class SQLObject
   end
 
   def update
-    col_names = self.class.columns.map { |col_name| "#{col_name} = ?" }.join(", ")
-    DBConnection.exec(<<-SQL, attribute_values, self.id)
+    col_names = non_empty_column_names.map{ |col_name| "#{col_name} = ?" }.join(", ")
+    DBConnection.exec(<<-SQL, non_empty_values)
     UPDATE
-      #{self.class.table_name}
+      #{table_name}
     SET
       #{col_names}
     WHERE
-      id = ?
+      id = #{self.id}
     SQL
   end
 

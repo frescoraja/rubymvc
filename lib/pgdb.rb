@@ -3,7 +3,8 @@ require 'uri'
 
 class Database < PG::Connection
   def initialize
-    params = URI.parse(ENV['DATABASE_URL'])
+    db_url = ENV['DATABASE_URL'] || "postgresql://postgres@localhost:5432/rubymvc"
+    params = URI.parse(db_url)
     super(
       host: params.host,
       port: params.port,

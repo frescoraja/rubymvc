@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= @sketch.title %></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheet.css">
+  </head>
+
+  <body>
+    <div id="outer">
+      <header>
+        <nav>
+          <a class="pull-left plus" href="/"><i class="fa fa-arrow-circle-o-left"></i></a>
+          <a class="github pull-right" href="http://github.com/frescoraja/rubymvc.git"><i class="fa fa-github-alt"></i></a>
+        </nav>
+      </header>
+
+      <div class="sketches">
+        <div class="sketch-show">
+          <img src="<%= @sketch.image %>">
+          <div class="details">
+            <details>
+              <p>Title: <%= @sketch.title %></p>
+              <p>Created by: <%= @sketch.author %></p>
+              <p>Created: <%= @sketch.created_at %></p>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+</html>

@@ -14,19 +14,19 @@ class Route
 
   def add_route_helpers
     case action_name
-      when :create, :index
-        name = "#{class_name_plural}"
-        add_path_method(name, "/#{name}")
-      when :show, :update, :destroy
-        name = "#{class_name_singular}"
-        add_path_method(name, "/#{class_name_plural}/:id")
-      when :edit
-        name = "edit_#{class_name_singular}"
-        add_path_method(name, "/#{class_name_plural}/:id/edit")
-      when :new
-        name = "new_#{class_name_singular}"
-        add_path_method(name, "/#{class_name_plural}/new")
-      end
+    when :create, :index
+      name = "#{class_name_plural}"
+      add_path_method(name, "/#{name}")
+    when :show, :update, :destroy
+      name = "#{class_name_singular}"
+      add_path_method(name, "/#{class_name_plural}/:id")
+    when :edit
+      name = "edit_#{class_name_singular}"
+      add_path_method(name, "/#{class_name_plural}/:id/edit")
+    when :new
+      name = "new_#{class_name_singular}"
+      add_path_method(name, "/#{class_name_plural}/new")
+    end
   end
 
   def class_name
@@ -45,7 +45,7 @@ class Route
     path_name = "#{name}_path"
     puts "#{path_name} #=> #{path}"
 
-    RouteHelpers.send(:define_method, path_name) do |*args|
+    define_singleton_method(path_name) do |*args|
       id = args.first.to_s
       if path.include?(":id") && !id.nil?
         path.gsub!(":id", id)

@@ -25,9 +25,7 @@ body {
 }
 
 .details {
-  position: absolute;
   padding: 2px 4px;
-  width: 100%;
   background-color: rgb(66, 66, 66);
   z-index: 10;
 }
@@ -67,6 +65,12 @@ nav {
   flex-basis: 30%;
   margin-bottom: 40px;
   position: relative;
+}
+
+.sketch-show {
+  height: 500px;
+  width: 500px;
+  align-self: center;
 }
 
 img {

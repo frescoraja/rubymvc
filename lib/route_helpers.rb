@@ -10,7 +10,7 @@ module RouteHelpers
     end
     form += "<input type='submit' value='#{title}'>"
     form += "</form>"
-    
+
     form
   end
 end

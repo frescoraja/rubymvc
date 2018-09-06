@@ -1,10 +1,23 @@
 require_relative './sql_object'
 
 module Searchable
-  def where(params)
-    where_line = params.keys.map { |key| "#{key} = ?" }.join(" AND ")
+  def find(id)
+    result = DBConnection.exec(<<-SQL)
+    SELECT
+      *
+    FROM
+      #{self.table_name}
+    WHERE
+      id = #{id.to_i}
+    SQL
 
-    results = DBConnection.execute(<<-SQL, *params.values)
+    parse_all(result).first
+  end
+
+  def where(params)
+    where_line = params.keys.map.with_index{|key, i| "#{key} = $#{i+1}"}.join(" AND ")
+
+    results = DBConnection.exec(<<-SQL, params.values)
     SELECT
       *
     FROM
@@ -12,6 +25,7 @@ module Searchable
     WHERE
       #{where_line}
     SQL
+
     parse_all(results)
   end
 end
