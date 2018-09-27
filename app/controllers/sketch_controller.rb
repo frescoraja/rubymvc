@@ -4,7 +4,9 @@ require 'cloudinary'
 
 class SketchController < ControllerBase
   def index
-    @sketches = Sketch.all.sort { |x, y| x.created_at <=> y.created_at }
+    @sketches = Sketch.all.sort do |x, y|
+      DateTime.parse(x.created_at) <=> DateTime.parse(y.created_at)
+    end
   end
 
   def create

@@ -1,5 +1,6 @@
 .ruby-version
+.byebug_history
 schema.sql
 env.sh
 Gemfile.lock
-
+.cloudinary
