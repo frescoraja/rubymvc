@@ -28,7 +28,9 @@ and date of creation). The UI was built using jQuery.
 ## Instructions to run
 
 If you would like to run this web application locally, you must be using ruby
-2.3.4, and have PostgreSQL.
+2.3.4, and have PostgreSQL. The png images you create are uploaded to
+[cloudinary.com](https://cloudinary.com), so you must have an API key to use it.
+It's free to create a cloudinary account for personal usage.
 
 ### PostgreSQL
 
@@ -61,14 +63,14 @@ psql> \q
 $> bundle install
 
 # run web app:
-$> USER=`whoami` ./bin/server 3000
+$> cloud_name=<cloud_name> api_key=<cloudinary api_key> api_secret=<cloudinary api_secret_> USER=`whoami` ./bin/server 3000
 ```
 
 Alternatively, you can use your own postgres server and use the DATABASE_URL
 variable when running the script to start the app, ie:
 
 ```cli
-DATABASE_URL=postgresql://username@127.0.0.1:5432/rubymvc ./bin/server 3000
+$> cloud_name=<cloud_name> api_key=<cloudinary api_key> api_secret=<cloudinary api_secret_> DATABASE_URL=postgresql://username@127.0.0.1:5432/rubymvc ./bin/server 3000
 ```
 
 Once it's up an running, point your browser to
