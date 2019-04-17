@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
@@ -9,6 +11,7 @@ require_relative './router'
 require_relative './route_helpers'
 require_relative './params'
 
+# ControllerBase provides interface to handle http request, response, and rendering
 class ControllerBase
   attr_reader :req, :res, :params
 
@@ -31,8 +34,9 @@ class ControllerBase
 
   # Set the response status code and header
   def redirect_to(url)
-    raise "Page Already Rendered?" if already_built_response?
-    @res.header["location"] = url
+    raise 'Page Already Rendered?' if already_built_response?
+
+    @res.header['location'] = url
     @res.status = 302
     @already_built_response = true
     session.store_session(@res)
@@ -43,9 +47,10 @@ class ControllerBase
   # Set the response's content type to the given type.
   # Raise an error if the developer tries to double render.
   def render_content(content, content_type)
-    raise "Page Already Rendered?" if already_built_response?
+    raise 'Page Already Rendered?' if already_built_response?
+
     @res.body = content
-    @res.content_type= content_type
+    @res.content_type = content_type
     @already_built_response = true
     session.store_session(@res)
     flash.store_flash(@res)
@@ -56,7 +61,7 @@ class ControllerBase
   def render(template_name)
     path = self.class.name.underscore
     file = File.dirname(__FILE__) +
-      "/../app/views/#{path}/#{template_name}.html.erb"
+           "/../app/views/#{path}/#{template_name}.html.erb"
     # if File.exist?(file)
     #   file = File.read(file)
     # else

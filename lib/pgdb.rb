@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 require 'pg'
 require 'uri'
 
+# Database provides the interface to execute queries in a DB
 class Database < PG::Connection
   def initialize
-    db_url = ENV['DATABASE_URL'] || "postgresql://postgres@localhost:5432/rubymvc"
+    db_url = ENV['DATABASE_URL'] || "postgresql://#{ENV['USER']}@localhost:5432/rubymvc"
     params = URI.parse(db_url)
     super(
       host: params.host,
@@ -15,14 +18,15 @@ class Database < PG::Connection
   end
 
   def self.exec(*args)
-    self.exec(*args)
+    exec(*args)
   end
 
   def self.exec_params(*args)
-    self.exec_params(*args)
+    exec_params(*args)
   end
 end
 
+# DBConnection is the base class for Database
 class DBConnection
   def self.instance
     @db ||= Database.new

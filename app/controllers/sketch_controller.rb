@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/controller_base'
 require_relative '../models/sketch'
 require 'cloudinary'
 
+# SketchController provides actions to create, index, and show Sketh models
 class SketchController < ControllerBase
   def index
     @sketches = Sketch.all.sort do |x, y|
@@ -11,27 +14,26 @@ class SketchController < ControllerBase
 
   def create
     auth = {
-      :cloud_name => ENV['cloud_name'],
-      :api_key    => ENV['api_key'],
-      :api_secret => ENV['api_secret']
+      cloud_name: ENV['cloud_name'],
+      api_key: ENV['api_key'],
+      api_secret: ENV['api_secret']
     }
     image = Cloudinary::Uploader.upload(sketch_params['image'], auth)
-    @sketch = Sketch.new(sketch_params.merge({ 'image' => image['url'] }))
+    @sketch = Sketch.new(sketch_params.merge('image' => image['url']))
     @sketch.save
 
-    redirect_to("/")
+    redirect_to('/')
   end
 
-  def new
-  end
+  def new; end
 
   def show
     @sketch = Sketch.find(params[:id])
   end
 
   private
+
   def sketch_params
     params['sketch']
   end
 end
-

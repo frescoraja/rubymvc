@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'uri'
 
+# Params provides interface to handle request parameters as a Hash
 class Params
   def initialize(req, route_params = {})
     @params = {}
@@ -20,6 +23,7 @@ class Params
   # class AttributeNotFoundError < ArgumentError; end;
 
   private
+
   def parse_www_encoded_form(www_encoded_form)
     params = {}
     keys_values = URI.decode_www_form(www_encoded_form)

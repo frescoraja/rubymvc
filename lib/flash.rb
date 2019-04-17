@@ -1,3 +1,6 @@
+# frozen_string_literal:true
+
+# HashWithIndifferentAccess extends Hash interface to allow lookup by string name or symbol
 class HashWithIndifferentAccess < Hash
   def [](key)
     super(key.to_s)
@@ -8,6 +11,7 @@ class HashWithIndifferentAccess < Hash
   end
 end
 
+# Flash class stores flash data in HashWithIndifferentAccess
 class Flash
   def initialize(req)
     cookie = req.cookies.find { |c| c.name == '_ruby_mvc_app_flash' }
@@ -15,10 +19,10 @@ class Flash
     @flash_now = HashWithIndifferentAccess.new
     @data = HashWithIndifferentAccess.new
 
-    if cookie
-      JSON.parse(cookie.value).each do |k, v|
-        @flash_now[k] = v
-      end
+    return unless cookie
+
+    JSON.parse(cookie.value).each do |k, v|
+      @flash_now[k] = v
     end
   end
 
@@ -37,10 +41,10 @@ class Flash
 
   def store_flash(res)
     cookie = WEBrick::Cookie.new(
-      "_ruby_mvc_app_flash",
+      '_ruby_mvc_app_flash',
       @data.to_json
     )
-    cookie.path = "/"
+    cookie.path = '/'
     res.cookies << cookie
   end
 end

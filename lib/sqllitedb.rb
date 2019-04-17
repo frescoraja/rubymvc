@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'sqlite3'
 
+# DBConnection provides an interface to connect to and run queries on a DB
 class DBConnection
   def self.open(db_file_name)
     @db = SQLite3::Database.new(db_file_name)
@@ -42,6 +45,7 @@ class DBConnection
   end
 
   private
+
   attr_reader :db_file_name, :sql_file_name
   def initialize(db_file_name)
     @db_file_name = db_file_name

@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative './route'
 
+# Router class is used to build routes
 class Router
   attr_reader :routes
 
@@ -11,7 +14,7 @@ class Router
     routes << Route.new(http_method, pattern, controller_class, action_name)
   end
 
-  [:get, :post, :put, :delete].each do |http_method|
+  %i[get post put delete].each do |http_method|
     define_method(http_method) do |pattern, controller_class, action_name|
       add_route(http_method, pattern, controller_class, action_name)
     end

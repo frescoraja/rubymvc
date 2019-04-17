@@ -8,7 +8,7 @@ $(document).ready(function(){
   var strokeWeight = $('#stroke').val();
   $("button.save-btn").prop("disabled", true);
 
-  $('.revealColorSelect').click(function(e) {
+  $('.revealColorSelect').click(function() {
     $(".colorSelect").toggleClass("shown");
     $(this).toggleClass("on");
   });
@@ -29,7 +29,7 @@ $(document).ready(function(){
     startedDrawing = false;
   });
 
-  $('#addNewColor').click(function(e){
+  $('#addNewColor').click(function(){
     var $newColor = $('<li>').css('display', 'none');
     $newColor.css("background-color", $(".newColor").css("background-color"));
     $("ul.colors").append($newColor);
@@ -82,7 +82,7 @@ $(document).ready(function(){
     lastEvent = e;
   });
 
-  $('body').on('mouseup', function(e) {
+  $('body').on('mouseup', function() {
     mouseDown = false;
   });
 
@@ -94,10 +94,11 @@ $(document).ready(function(){
   });
 
   $("#save-form").submit(function (e) {
-    e.preventDefault();
-    $('button.save-btn').prop('disabled', true);
     var imgData = $canvas[0].toDataURL('image/png');
     var sketchData = $("#save-form").serializeJSON();
+
+    e.preventDefault();
+    $('button.save-btn').prop('disabled', true);
     sketchData.sketch.image = imgData;
 
     $.ajax({
@@ -105,7 +106,7 @@ $(document).ready(function(){
       method: 'POST',
       data: sketchData,
       dataType: 'json',
-      complete: function(req, res) {
+      complete: function() {
         window.location = "/";
       }
     });
