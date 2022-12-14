@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.4'
+ruby '3.1.2'
 
 gem 'activesupport'
 gem 'rspec'
