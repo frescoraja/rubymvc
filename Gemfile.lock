@@ -52,6 +52,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  ruby
 
 DEPENDENCIES
   activesupport
@@ -61,7 +62,7 @@ DEPENDENCIES
   rspec
 
 RUBY VERSION
-   ruby 3.1.2p20
+   ruby 2.7.7p221
 
 BUNDLED WITH
    2.3.7
